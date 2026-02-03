@@ -1,9 +1,11 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
+
+RUN userdel -r ubuntu
 
 MAINTAINER @dukebarman
 
-ARG gradle_version=7.3
-ARG jdk_version=17
+ARG gradle_version=8.5
+ARG jdk_version=21
 
 RUN echo Europe/London > /etc/timezone
 RUN echo tzdata tzdata/Areas select Europe | debconf-set-selections
@@ -22,7 +24,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         software-properties-common \
         unzip \
         wget \
-		xvfb
+        xvfb \
+        python3 \
+        python3-venv
 
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:openjdk-r/ppa -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \

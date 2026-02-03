@@ -13,10 +13,16 @@ fi
 
 ln -s $HOME/ghidra.bin ghidra.bin # hack
 
+python3 -m venv env
+
+source env/bin/activate
+
 cd $START_DIR/ghidra
 gradle --init-script gradle/support/fetchDependencies.gradle init
 gradle yajswDevUnpack
 gradle buildGhidra
+gradle prepDev
+gradle eclipse -PeclipsePDE
 
 # Tests
 # Xvfb :99 -nolisten tcp & export DISPLAY=:99
